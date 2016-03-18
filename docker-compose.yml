@@ -1,0 +1,21 @@
+version: '2'
+services:
+    app:
+        build: .
+        ports:
+            - '8080:5000'
+        volumes:
+            - ./app:/app
+        restart: always
+        command: nodemon -L --exec "python3" ./main.py
+        networks:
+            - flaskapp
+    redis:
+        image: redis
+        restart: always
+        networks:
+            - flaskapp
+networks:
+    flaskapp:
+        driver: bridge
+
